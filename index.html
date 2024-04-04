@@ -17,14 +17,35 @@
 
 <div class="container">
    <!-- Mascot -->
-     <img src="img/zura.png" alt="Zura Mascot" style="height: 200px;"> 
+     <img src="img/zura.png" class="mascot" alt="Zura Mascot"> 
     <div>
         <h1>
             The Zura Programming Language 0.1
             <span class="version-beta">beta</span>
         </h1>
     </div>
-    <p>Low-level compiled programming language designed to be expressive, versatile, and easy to use.</p>
+    <p>Low-level compiled programming language <br> 
+    designed to be expressive, versatile, and easy to use.</p>
+
+    <div class="codeBlock">
+      <pre><code><span class="comment">// Simple Calculator in Zura</span>
+fn math(op: char, a: i8, b: i32) -> int {
+  switch(op) {
+    '+' => ret a + b;
+    '-' => ret a - b;
+    '*' => ret a * b;
+    '/' => ret a / b;
+    _ => ret 0;
+  }
+}
+
+fn main() -> !void {
+  auto x := (math('+', 10, 5) == 0) ? "Operation not found"
+                                    : math('+', 10, 5);
+  info "%a\n", .{x};
+  ret 0;
+}</pre></code>
+    </div>
 
     <div class="link__holder">
         <!-- GitHub -->
