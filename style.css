@@ -109,3 +109,9 @@ p {
     transform: translateY(3px);
 }
 
+/* Handle the mobile view */ 
+@media (max-width: 768px) { 
+    .link__holder {
+        flex-direction: column;
+    }
+}
