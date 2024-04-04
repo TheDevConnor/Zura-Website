@@ -69,7 +69,7 @@ p {
 
 .codeBlock {
     background-color: #2C2F33;
-    border-radius: 10px;
+    border-radius: 5px;
     padding: 10px;
     margin: 10px 0px 0px 0px;
 
@@ -146,8 +146,8 @@ p {
 /* Handle the mobile view */ 
 @media (max-width: 768px) {
     .mascot {
-        width: 150px;
-        height: 150px;
+        width: 130px;
+        height: 130px;
     }
 
     .container {
@@ -155,10 +155,11 @@ p {
     }
 
     .codeBlock {
-        font-size: 12px;
+        font-size: 10px;
     } 
 
     .link__holder {
         flex-direction: column;
     }
 }
+
