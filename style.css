@@ -7,14 +7,15 @@ body {
     padding: 0;
 }
 
-i{
+i {
     font-size: 30px;
     cursor: pointer;
     align-items: end;
 }
 
-.nav-bar { 
-  margin: 0px 10px 0px 10px;
+.nav-bar {
+  padding-top: 15px;
+  padding-left: 25px; 
 }
 
 .container {
@@ -82,4 +83,29 @@ p {
 
 .discord-link {
     background-color: #7289DA;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 3px 7px 0 #111;
+    cursor: pointer;
+    transition: all 0.3s;
 }
+
+.discord-link:hover {
+    box-shadow: 0 0px 0 #111;
+    transform: translateY(3px);
+}
+
+.github-link {
+    background-color: #34292E;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 3px 7px 0 #111;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.github-link:hover {
+    box-shadow: 0 0px 0 #111;
+    transform: translateY(3px);
+}
+
