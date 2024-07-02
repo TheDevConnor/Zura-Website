@@ -29,7 +29,7 @@
 
     <div class="codeBlock">
       <pre><code><span class="comment">// Simple Calculator in Zura</span>
-fn math(op: char, a: i8, b: i32) -> int {
+const main := fn(op: char, a: int, b: int) int {
   switch(op) {
     '+' => ret a + b;
     '-' => ret a - b;
@@ -39,11 +39,13 @@ fn math(op: char, a: i8, b: i32) -> int {
   }
 }
 
-fn main() -> !void {
-  auto x := (math('+', 10, 5) == 0) ? "Operation not found"
-                                    : math('+', 10, 5);
-  info "%a\n", .{x};
-  ret 0;
+const main := fn() int {
+  have x: int = (math('+', 10, 5) == 0) ? 0
+                                        : math('+', 10, 5);
+  if (x == 0) dis("OP was not found");
+  else dis("%d\n", x);
+
+  return 0;
 }</pre></code>
     </div>
 
