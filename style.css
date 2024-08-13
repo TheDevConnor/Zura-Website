@@ -3,33 +3,54 @@ body {
     background-color: #23272A; 
     color: white;
     margin: 0;
-    margin-bottom: 0;
-    margin-top: 0;
     padding: 0;
 }
 
-i {
-    font-size: 30px;
-    cursor: pointer;
-    align-items: end;
-}
-
-::-webkit-scrollbar {
-    width: 5px;
-}
-
-::-webkit-scrollbar-track {
-    background: #2C2F33;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #4a607e;
-    border-radius: 10px;
-}
-
 .nav-bar {
-  padding-top: 15px;
-  padding-left: 25px; 
+    position: fixed; /* Make the nav bar float */
+    top: 0;
+    left: 50%; /* Start from the center horizontally */
+    transform: translateX(-50%); /* Adjust to center the nav bar */
+    z-index: 1000; /* Ensure it stays on top of other content */
+    display: inline-flex; /* Make the nav bar only as wide as its content */
+    background-color: #2C2F33;
+    padding: 15px;
+    border-radius: 10px; /* Rounded corners for a floating effect */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3); /* Add shadow for floating effect */
+    margin-bottom: 0; /* Remove any margin under the nav bar */
+}
+
+.nav-bar nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+}
+
+.nav-bar nav ul li {
+    display: inline;
+}
+
+.nav-bar nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.nav-bar nav ul li a:hover {
+    background-color: #4a607e;
+}
+
+.nav-bar nav ul li i {
+    font-size: 24px;
+    cursor: pointer;
+    color: white;
 }
 
 .container {
@@ -39,17 +60,14 @@ i {
     justify-content: center;
     height: 100vh;
     text-align: center;
-}
-
-h1 {
-    font-size: 32px;
-    font-weight: bolder;
-    margin-bottom: -20px;
+    padding-top: 15px; /* Adjust padding to move content closer to the nav bar */
+    margin-top: 0; /* Remove any potential margin above the container */
 }
 
 .mascot {
     width: 200px;
     height: 200px;
+    margin-top: 0; /* Ensure no margin between mascot and container */
 }
 
 .version-beta {
@@ -72,14 +90,9 @@ p {
     border-radius: 5px;
     padding: 10px;
     margin: 10px 0px 0px 0px;
-
     text-align: left;
     color: white;
     font-size: 15px; 
-}
-
-.codeBlock .comment {
-    color: #999;
 }
 
 .link__holder {
@@ -151,7 +164,7 @@ p {
     }
 
     .container {
-        padding: 0 20px;
+        padding: 60px 20px 0 20px; /* Adjust padding-top for mobile view */
     }
 
     .codeBlock {
@@ -160,6 +173,11 @@ p {
 
     .link__holder {
         flex-direction: column;
+    }
+
+    .nav-bar nav ul {
+        flex-direction: column;
+        gap: 10px; /* Adjust spacing for mobile */
     }
 }
 

@@ -1,0 +1,208 @@
+/* General page styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #23272A;
+    color: #E0E0E0;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+/* Container for centering content */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Navigation bar styles */
+.nav-bar {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    display: inline-flex;
+    background-color: #2C2F33;
+    padding: 10px 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.nav-bar nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+}
+
+.nav-bar nav ul li {
+    display: inline;
+}
+
+.nav-bar nav ul li a {
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.nav-bar nav ul li a:hover {
+    background-color: #4A607E;
+}
+
+.nav-bar nav ul li i {
+    font-size: 24px;
+    cursor: pointer;
+    color: #FFFFFF;
+}
+
+/* Header and links */
+h1,
+h2 {
+    color: #FFD700;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 0.5em;
+    margin-top: 60px;
+    /* Adjust for nav-bar height */
+}
+
+h2 {
+    font-size: 2em;
+    margin-top: 1.5em;
+    margin-bottom: 1em;
+}
+
+p {
+    font-size: 1.1em;
+    margin-bottom: 1.5em;
+}
+
+p a {
+    color: #FFD700;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+p a:hover {
+    text-decoration: underline;
+}
+
+/* Navigation links at the top */
+p[align="center"] {
+    margin-bottom: 2em;
+    font-size: 1.2em;
+}
+
+p[align="center"] a {
+    color: #FFD700;
+    margin: 0 10px;
+}
+
+p[align="center"] a:hover {
+    text-decoration: underline;
+}
+
+/* Section styles */
+section {
+    margin-bottom: 2em;
+    padding: 20px;
+    background-color: #2C2F33;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+section ul {
+    margin-left: 20px;
+    list-style-type: disc;
+}
+
+section ul li {
+    margin-bottom: 0.5em;
+}
+
+code {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #333;
+    padding: 2px 4px;
+    border-radius: 4px;
+    color: #FFD700;
+}
+
+/* Code blocks */
+pre {
+    background-color: #2C2F33;
+    padding: 15px;
+    border-radius: 10px;
+    overflow-x: auto;
+    font-size: 0.95em;
+    line-height: 1.4;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+pre code {
+    color: #E0E0E0;
+}
+
+pre code.language-bash {
+    color: #87D7FF;
+}
+
+pre code.language-powershell {
+    color: #56B6C2;
+}
+
+/* Buttons and links */
+a.button {
+    display: inline-block;
+    background-color: #FF6F61;
+    color: #FFFFFF;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+a.button:hover {
+    background-color: #FF8A73;
+}
+
+/* Responsive design adjustments */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    h2 {
+        font-size: 1.5em;
+    }
+
+    p[align="center"] {
+        font-size: 1em;
+    }
+
+    pre {
+        font-size: 0.85em;
+        padding: 10px;
+    }
+}
