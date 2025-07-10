@@ -36,17 +36,23 @@
       designed to be expressive, versatile, and easy to use.</p>
 
     <div class="codeBlock">
-      <pre><code>//Fib in Zura
-const fib := fn(b: int) int {
-  have res: int (n <= 1) ? n 
-                         : fib(n - 1) + fib(n - 2);
-  return res;
+<link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.css" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/prism.js"></script>
+
+<pre><code class="language-clike"># Fib in Zura
+const fib := fn (n: int!, a: int!, b: int!) int! {
+  if (n == 0) return a;
+  if (n == 1) return b;
+  return fib(n - 1, b, a + b);
 };
 
-const main := fn() int {
-  have n: int = 10;
-  return fib(n);
-};</pre></code>
+const main := fn () int! {
+  loop (i = 0; i <= 92) : (i++) {
+    @outputln(1, "fib(", i, ") = ", fib(i, 0, 1));
+  }
+  return 0;
+};</code></pre>
+
     </div>
 
     <div class="link__holder">
