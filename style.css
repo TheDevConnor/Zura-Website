@@ -263,6 +263,35 @@ p {
   margin-top: 0;
 }
 
+/* ===============================
+   Footer 
+================================== */
+.footer {
+  /* Put it on the bottom of the page and make the text small and centered */
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 10px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.footer p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.footer a {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
 /* ================================
    Responsive Design
 ================================== */

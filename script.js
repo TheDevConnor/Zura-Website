@@ -7,6 +7,13 @@ toggle.addEventListener('click', () => {
   body.style.background = isDark ? '#23272A' : '#DCDDDE';
   body.style.color = isDark ? '#DCDDDE' : '#23272A';
   body.style.transition = 'background 2s, color 2s';
+
+  // Chahnge the footer-link text color
+  const footerLinks = document.querySelectorAll('.footer-link');
+  footerLinks.forEach(link => {
+    link.style.color = isDark ? '#DCDDDE' : '#23272A';
+    link.style.transition = 'color 2s';
+  });
 });
 
 const selector = document.getElementById('codeSelector');
