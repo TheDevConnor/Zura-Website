@@ -173,5 +173,8 @@ document.getElementById("codeSelector").addEventListener("change", (e) => {
 window.addEventListener("DOMContentLoaded", () => {
   const codeSelector = document.getElementById("codeSelector");
   codeSelector.dispatchEvent(new Event("change"));
+  // Lerp the transition for the code block
+  const codeBlock = document.querySelector('.code_block');
+  codeBlock.style.transition = 'background 2s, color 2s';
 });
 

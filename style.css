@@ -113,7 +113,7 @@ p {
 .nav-bar nav ul li i {
   color: var(--color-nav-text);
   text-decoration: none;
-  font-size: 1.29rem;
+  font-size: 1rem;
   font-weight: 600;
   padding: 6px 12px;
   border-radius: 6px;
@@ -172,7 +172,9 @@ p {
   color: var(--color-text);
   background-color: var(--bg-code);
   box-shadow: 0px 4px 8px var(--shadow-dark);
+  min-width: 500px;
   max-width: fit-content;
+  max-height: 300px;
 }
 
 
