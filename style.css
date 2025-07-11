@@ -172,11 +172,20 @@ p {
   color: var(--color-text);
   background-color: var(--bg-code);
   box-shadow: 0px 4px 8px var(--shadow-dark);
+
   min-width: 500px;
-  max-width: fit-content;
+  max-width: 800px;
   max-height: 300px;
+  min-height: 300px;
 }
 
+.code_block::-webkit-scrollbar{
+  width: 8px;
+  height: 8px;
+  border-radius: 4px;
+  background-color: var(--bg-nav);
+  color: #fff;
+}
 
 /* ================================
    Prism.js Token Styles (Zura)
@@ -348,6 +357,11 @@ p {
   .codeBlock {
     font-size: 0.8rem;
     word-wrap: break-word;
+
+    max-width: 5px;
+    max-height: 400px;
+    overflow-x: auto;
+    overflow-y: auto;
   }
 
   .link__holder {

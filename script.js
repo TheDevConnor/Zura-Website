@@ -27,10 +27,16 @@ selector.addEventListener('change', function () {
 
 const codeSamples = {
   "Hello-There": `const main := fn () int! {
-  have person: [5]str = ["Software Dev", "Compiler Dev", 
-                    "Low-Level Dev", "C Dev", "Rust Dev"];
+  have person: [7]str = [
+    "Software Dev", 
+    "Compiler Dev", 
+    "Low-Level Dev", 
+    "C Dev", 
+    "Rust Dev",
+    "Zig Dev",
+  ];
 
-  loop (i = 0; i < 5) : (i++) {
+  loop (i = 0; i < 7) : (i++) {
     @outputln(1, "Hello there, ", person[i], "!");
   }
 
