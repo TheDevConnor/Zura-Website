@@ -79,41 +79,24 @@
       <div class="right-page">
         <div class="codeBlockSwitcher">
           <label for="codeSelector">Choose example:</label>
-          <select id="codeSelector">
-            <option value="example-zura">Zura</option>
-            <option value="example-python">Python</option>
-            <option value="example-cpp">C++</option>
+          <select id="codeSelector" class="codeSelector">
+            <option value="Hello-There">Hello There</option>
+            <option value="Variables-and-Types">Variables and Types</option>
+            <option value="Control-Flow">Control Flow</option>
+            <option value="Functions">Functions</option>
+            <option value="Structs-Enums">Structs and Enums</option>
+            <option value="Memory-Management">Memory Management</option>
+            <option value="Arrays">Arrays</option>
           </select>
 
-          <div class="code-example" id="example-zura">
-            <pre><code class="language-zura">const main := fn () int! {
-  have x: int! = 10;
-  return x;
-}</code></pre>
-          </div>
-
-          <div class="code-example" id="example-python" style="display: none;">
-            <pre><code class="language-python">def main():
-  x = 10
-  return x</code></pre>
-          </div>
-
-          <div class="code-example" id="example-cpp" style="display: none;">
-            <pre><code class="language-cpp">int main() {
-  int x = 10;
-  return x;
-}</code></pre>
-          </div>
+          <pre class="code_block"><code id="codeOutput" class="language-zura"></code></pre>
         </div>
       </div>
 
-    </div>
-
-  </div>
-
-  <footer class="footer">
-    <p>© 2025 Zura Programming Language. All rights reserved. Created by <a href="https://github.com/TheDevConnor" class="footer-link">Zura Team</a></p>
-  </footer>
+      <footer class="footer">
+        <p>© 2025 Zura Programming Language. All rights reserved. Created by <a href="https://github.com/TheDevConnor" target="_blank"
+            class="footer-link">Zura Team</a></p>
+      </footer>
 
 </body>
 

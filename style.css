@@ -148,8 +148,27 @@ p {
   border-radius: 6px;
 }
 
+.codeSelector {
+  width: 100%;
+  max-width: 300px;
+}
+
 .code-example {
+  background-color: var(--bg-code);
   margin-top: 12px;
+}
+
+.code_block {
+  padding: 16px;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--color-text);
+  background-color: var(--bg-code);
+  box-shadow: 0px 4px 8px var(--shadow-dark);
+  max-width: fit-content;
 }
 
 
@@ -237,7 +256,7 @@ p {
   gap: 40px;
   padding: 40px;
   flex-wrap: wrap;
-  max-width: 1200px;
+  max-width: 1500px;
   margin: 0 auto;
 }
 
