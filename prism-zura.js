@@ -24,10 +24,7 @@ Prism.languages.zura = {
   'operator': /[:=(){}\[\],;.+\-*/<>]/,
 
   'variable': {
-    pattern: /\b[a-zA-Z_]\w*\b/,
-    inside: {
-      'keyword': /\b(?:const|fn|have|auto|loop|if|else|return|enum|struct|typename|template)\b/,
-      'type': /\b(?:int|float|bool|str|char)\b/
-    }
+    pattern: /\b\w+\b/,
+    alias: 'variable'
   }
 };

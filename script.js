@@ -2,16 +2,16 @@ const toggle = document.getElementById('toggleDark');
 const body = document.body;
 
 toggle.addEventListener('click', () => {
-  const isDark = toggle.classList.toggle('bi-brightness-high-fill');
-  toggle.classList.toggle('bi-moon', !isDark);
-  body.style.background = isDark ? '#23272A' : '#DCDDDE';
-  body.style.color = isDark ? '#DCDDDE' : '#23272A';
+  const isDark = toggle.classList.toggle('bi-moon');
+  toggle.classList.toggle('bi-brightness-high-fill', !isDark);
+  body.style.background = isDark ? '#DCDDDE' : '#23272A'; // Light mode background
+  body.style.color = isDark ? '#23272A' : '#DCDDDE';
   body.style.transition = 'background 2s, color 2s';
 
   // Chahnge the footer-link text color
   const footerLinks = document.querySelectorAll('.footer-link');
   footerLinks.forEach(link => {
-    link.style.color = isDark ? '#DCDDDE' : '#23272A';
+    link.style.color = isDark ? '#23272A' : '#DCDDDE';
     link.style.transition = 'color 2s';
   });
 });
@@ -56,7 +56,7 @@ const codeSamples = {
   return 0;
 };`,
 
-  "Functions": `const fib := fn (n: int) int! {
+  "Functions": `const fib := fn (n: int!) int! {
     if (n <= 1) return n;
 
   have a: int! = 0;
@@ -70,16 +70,96 @@ const codeSamples = {
   return b;
 };
 
+const fib_tail := fn (n: int!, a: int!, b: int!) int! {
+  if (n == 0) return a;
+  if (n == 1) return b;
+  return fib_tail(n - 1, b, a + b);
+};
+
 const main := fn () int! {
-  @outputln(1, "Fibonacci of 5 is: ", fib(5));
+  @outputln(1, "Fib of 92 is: ", fib(92));
+  @outputln(1, "Fib of 92 (tail recursive) is: ", fib_tail(92, 0, 1));
   return 0;
 };`,
 
-  "Structs-Enums": ``,
+  "Control-Flow": `const main := fn () int! {
+  # For loop with optional condition
+  loop (i = 0; i < 10) : (i++) {
+    if (i == 5) { @outputln(1, "Reached halfway point at i = ", i); }
+    else @outputln(1, "Current value of i: ", i);
+  }
+
+  # While loop with optional condition
+  have i: int! = 0;
+  loop (i < 5) : (i++) {
+    if (i == 3) { @outputln(1, "SPECIAL CASE: i is 3"); }
+    else @outputln(1, "Current value of i: ", i);
+  }
+
+  # While loop
+  have j: int! = 0;
+  loop (j < 5) {
+    if (j == 2) { @outputln(1, "Skipping j = 2"); j++; }
+    @outputln(1, "Current value of j: ", j);
+    j++;
+  }
+  return 0;
+};`,
+
+  "Structs": `const Person := struct {
+  name: str,
+  age: int!,
+
+  greet := fn (self: *Person) void {
+    @outputln(1, "Hello, my name is ", self.name, 
+                 " and I am ", self.age, " years old.");
+  };
+};
+
+const main := fn () int! {
+  have person: Person = {
+    name: "Zura",
+    age: 1
+  };
+
+  person.greet();
+  return 0;
+};`,
+
+  "Enums": `const Day := enum {
+  Monday,     # 0
+  Tuesday,    # 1
+  Wednesday,  # 2
+  Thursday,   # 3
+  Friday,     # 4
+  Saturday,   # 5
+  Sunday,     # 6
+};
+
+const isWeekend := fn (d: int!) bool {
+  match (d) {
+    case 4 ->  { return true; } # Friday
+    case 5 ->  { return true; } # Saturday
+    case 6 ->  { return true; } # Sunday
+    default -> { return false; }
+  }
+
+  return false; # Default case, should not be reached
+};
+
+const main := fn () int! {
+  have today: Day = Day.Friday; 
+
+  if (isWeekend(@cast<int!>(today))) {
+    @outputln(1, "It's the weekend!");
+  } else {
+    @outputln(1, "It's a weekday.");
+  }
+
+  return 0;
+};`,
 
   "Memory-Management": ``,
-
-  "Arrays": `have nums: [5]int = [1, 2, 3, 4, 5];`
 };
 
 document.getElementById("codeSelector").addEventListener("change", (e) => {
