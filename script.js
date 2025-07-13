@@ -16,6 +16,18 @@ toggle.addEventListener('click', () => {
   });
 });
 
+const hamburger = document.getElementById("hamburger");
+const navLinks = document.getElementById("navLinks");
+
+hamburger.addEventListener("click", () => {
+  navLinks.classList.toggle("active");
+
+  hamburger.innerHTML = navLinks.classList.contains("active")
+  ? '<i class="bi bi-x"></i>'
+  : '<i class="bi bi-list"></i>';
+});
+
+
 const selector = document.getElementById('codeSelector');
 const examples = document.querySelectorAll('.code-example');
 
@@ -27,14 +39,9 @@ selector.addEventListener('change', function () {
 
 const codeSamples = {
   "Hello-There": `const main := fn () int! {
-  have person: [7]str = [
-    "Software Dev", 
-    "Compiler Dev", 
-    "Low-Level Dev", 
-    "C Dev", 
-    "Rust Dev",
-    "Zig Dev",
-  ];
+  have person: [7]str = ["Software Dev", "Compiler Dev", 
+                        "Low-Level Dev", "C Dev", 
+                        "Rust Dev", "Zig Dev", "Zura Dev"];
 
   loop (i = 0; i < 7) : (i++) {
     @outputln(1, "Hello there, ", person[i], "!");
@@ -83,8 +90,8 @@ const fib_tail := fn (n: int!, a: int!, b: int!) int! {
 };
 
 const main := fn () int! {
-  @outputln(1, "Fib of 92 is: ", fib(92));
-  @outputln(1, "Fib of 92 (tail recursive) is: ", fib_tail(92, 0, 1));
+  @outputln(1, "Fib(92) = ", fib(92));
+  @outputln(1, "Fib(92)(tail rec) = ", fib_tail(92, 0, 1));
   return 0;
 };`,
 
