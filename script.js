@@ -172,7 +172,47 @@ const main := fn () int! {
   return 0;
 };`,
 
-  "Memory-Management": ``,
+  "Memory-Management": `const readFile := fn (path: *char, size: int!) *char {
+  have bytes: *char = @cast<*char>(@alloc(size));
+  if (bytes == nil) {
+    @outputln(1, 
+              "Memory alloc failed for reading file: ", 
+              path);
+    return 6;
+  }
+  
+  have fd: int! = @open(path, true, false, false);
+  if (fd < 0) {
+    return nil;
+  }
+
+  @input(fd, bytes, size);
+  @close(fd);
+  return bytes;
+};
+
+const main := fn () int! {
+  have path: *char = "example.txt";
+  hacve size: int! = 1024;
+
+  have contents: *char = readFile(path, size);
+  if (contents == nil) {
+    @outputln(2, "Failed to read file: ", path);
+    return 1; # Return error code if reading fails
+  }
+
+  have realSize: int! = size;
+  loop (i = size - 1; i >= 0) : (i--) {
+    if (contents[i] == @cast<char>(0)) realSize--;
+    else break;
+  }
+  contents[realSize - 1] = @cast<char>(0);
+  @outputln(1, "File contents: ", contents);
+  @free(contents, size); # Free the allocated memory
+  return 0;
+};
+
+`,
 };
 
 document.getElementById("codeSelector").addEventListener("change", (e) => {
