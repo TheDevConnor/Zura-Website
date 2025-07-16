@@ -209,8 +209,7 @@ pre[class*="language-"],
 }
 
 .code_block {
-  min-width: 665px;
-  max-width: 665px;
+  width: 100%;
 
   min-height: 270px;
   max-height: 270px;
@@ -789,7 +788,7 @@ pre[class*="language-"] {
   }
 
   .code_block {
-    width: max-content;
+    width: 100%;
     /* translate: -20.5% 0; */
   }
 
@@ -832,7 +831,7 @@ pre[class*="language-"] {
   }
 
   .code_block {
-    width: 110%;
+    width: 100%;
     transform: translateX(-4.5%);
     margin: 0 auto;
   }
