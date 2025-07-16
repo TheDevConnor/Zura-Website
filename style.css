@@ -169,7 +169,13 @@ p {
 /* ================================
    Prism.js Token Styles (Custom Theme)
 ================================== */
-/* Base styles with higher specificity */
+.code_block {
+  width: 100%;
+
+  min-height: 270px;
+  max-height: 270px;
+}
+
 code[class*="language-"],
 pre[class*="language-"],
 .code-example code[class*="language-"],
@@ -206,13 +212,6 @@ pre[class*="language-"],
   overflow: auto;
   background: var(--bg-code) !important; /* dark background */
   border-radius: 0.3em;
-}
-
-.code_block {
-  width: 100%;
-
-  min-height: 270px;
-  max-height: 270px;
 }
 
 /* Override code-example background */
