@@ -1,21 +1,61 @@
 const toggle = document.getElementById('toggleDark');
 const body = document.body;
 
-toggle.addEventListener('click', () => {
-  const isDark = toggle.classList.toggle('bi-moon');
-  toggle.classList.toggle('bi-brightness-high-fill', !isDark);
-  body.style.background = isDark ? '#DCDDDE' : '#23272A'; // Light mode background
-  body.style.color = isDark ? '#23272A' : '#DCDDDE';
-  body.style.transition = 'background 2s, color 2s';
+// Restore dark mode from localStorage
+window.addEventListener("DOMContentLoaded", () => {
+  const savedTheme = localStorage.getItem("theme");
+  const isDark = savedTheme === "dark";
 
-  // Chahnge the footer-link text color
+  if (isDark) {
+    body.style.background = '#23272A';
+    body.style.color = '#DCDDDE';
+    toggle.classList.remove('bi-moon');
+    toggle.classList.add('bi-brightness-high-fill');
+  } else {
+    body.style.background = '#DCDDDE';
+    body.style.color = '#23272A';
+    toggle.classList.remove('bi-brightness-high-fill');
+    toggle.classList.add('bi-moon');
+  }
+
+  // Apply footer-link color
   const footerLinks = document.querySelectorAll('.footer-link');
   footerLinks.forEach(link => {
-    link.style.color = isDark ? '#23272A' : '#DCDDDE';
+    link.style.color = isDark ? '#DCDDDE' : '#23272A';
+    link.style.transition = 'color 2s';
+  });
+
+  // Trigger initial code sample load
+  const codeSelector = document.getElementById("codeSelector");
+  codeSelector.dispatchEvent(new Event("change"));
+
+  // Code block animation
+  const codeBlock = document.querySelector('.code_block');
+  codeBlock.style.transition = 'background 2s, color 2s';
+});
+
+// Toggle dark mode with click
+toggle.addEventListener('click', () => {
+  const isCurrentlyMoon = toggle.classList.contains('bi-moon');
+  const isDark = isCurrentlyMoon; // we are switching TO dark if it currently shows moon
+
+  localStorage.setItem('theme', isDark ? 'dark' : 'light');
+
+  body.style.background = isDark ? '#23272A' : '#DCDDDE';
+  body.style.color = isDark ? '#DCDDDE' : '#23272A';
+  body.style.transition = 'background 2s, color 2s';
+
+  toggle.classList.toggle('bi-moon', !isDark);
+  toggle.classList.toggle('bi-brightness-high-fill', isDark);
+
+  const footerLinks = document.querySelectorAll('.footer-link');
+  footerLinks.forEach(link => {
+    link.style.color = isDark ? '#DCDDDE' : '#23272A';
     link.style.transition = 'color 2s';
   });
 });
 
+// ====== HAMBURGER MENU TOGGLE ======
 const hamburger = document.getElementById("hamburger");
 const navLinks = document.getElementById("navLinks");
 
@@ -23,11 +63,11 @@ hamburger.addEventListener("click", () => {
   navLinks.classList.toggle("active");
 
   hamburger.innerHTML = navLinks.classList.contains("active")
-  ? '<i class="bi bi-x"></i>'
-  : '<i class="bi bi-list"></i>';
+    ? '<i class="bi bi-x"></i>'
+    : '<i class="bi bi-list"></i>';
 });
 
-
+// ====== CODE SELECTOR TOGGLE DISPLAY ======
 const selector = document.getElementById('codeSelector');
 const examples = document.querySelectorAll('.code-example');
 
@@ -37,6 +77,7 @@ selector.addEventListener('change', function () {
   if (selected) selected.style.display = 'block';
 });
 
+// ====== CODE SAMPLE DATA AND PRISM HIGHLIGHTING ======
 const codeSamples = {
   "Hello-There": `const main := fn () int! {
   have person: [7]str = ["Software Dev", "Compiler Dev", 
@@ -219,15 +260,5 @@ document.getElementById("codeSelector").addEventListener("change", (e) => {
   const selected = e.target.value;
   const codeElement = document.getElementById("codeOutput");
   codeElement.textContent = codeSamples[selected] || "";
-  Prism.highlightElement(codeElement); // re-highlight
+  Prism.highlightElement(codeElement);
 });
-
-// Set default on load
-window.addEventListener("DOMContentLoaded", () => {
-  const codeSelector = document.getElementById("codeSelector");
-  codeSelector.dispatchEvent(new Event("change"));
-  // Lerp the transition for the code block
-  const codeBlock = document.querySelector('.code_block');
-  codeBlock.style.transition = 'background 2s, color 2s';
-});
-
