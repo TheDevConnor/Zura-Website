@@ -1,81 +1,163 @@
 const toggle = document.getElementById('toggleDark');
 const body = document.body;
 
-// Restore dark mode from localStorage
-window.addEventListener("DOMContentLoaded", () => {
-  const savedTheme = localStorage.getItem("theme");
-  const isDark = savedTheme === "dark";
-
-  if (isDark) {
-    body.style.background = '#23272A';
-    body.style.color = '#DCDDDE';
-    toggle.classList.remove('bi-moon');
-    toggle.classList.add('bi-brightness-high-fill');
-  } else {
-    body.style.background = '#DCDDDE';
-    body.style.color = '#23272A';
-    toggle.classList.remove('bi-brightness-high-fill');
-    toggle.classList.add('bi-moon');
-  }
-
-  // Apply footer-link color
-  const footerLinks = document.querySelectorAll('.footer-link');
-  footerLinks.forEach(link => {
-    link.style.color = isDark ? '#DCDDDE' : '#23272A';
-    link.style.transition = 'color 2s';
-  });
-
-  // Trigger initial code sample load
-  const codeSelector = document.getElementById("codeSelector");
-  codeSelector.dispatchEvent(new Event("change"));
-
-  // Code block animation
-  const codeBlock = document.querySelector('.code_block');
-  codeBlock.style.transition = 'background 2s, color 2s';
-});
-
-// Toggle dark mode with click
-toggle.addEventListener('click', () => {
-  const isCurrentlyMoon = toggle.classList.contains('bi-moon');
-  const isDark = isCurrentlyMoon; // we are switching TO dark if it currently shows moon
-
+// === Apply theme ===
+function applyTheme(isDark) {
+  document.documentElement.classList.toggle('dark-mode', isDark);
   localStorage.setItem('theme', isDark ? 'dark' : 'light');
 
-  body.style.background = isDark ? '#23272A' : '#DCDDDE';
-  body.style.color = isDark ? '#DCDDDE' : '#23272A';
-  body.style.transition = 'background 2s, color 2s';
+  // Toggle icon if present
+  if (toggle) {
+    toggle.classList.toggle('bi-moon', !isDark);
+    toggle.classList.toggle('bi-brightness-high-fill', isDark);
+  }
 
-  toggle.classList.toggle('bi-moon', !isDark);
-  toggle.classList.toggle('bi-brightness-high-fill', isDark);
-
+  // Footer link color
   const footerLinks = document.querySelectorAll('.footer-link');
   footerLinks.forEach(link => {
     link.style.color = isDark ? '#DCDDDE' : '#23272A';
     link.style.transition = 'color 2s';
   });
+}
+
+// === On load ===
+window.addEventListener("DOMContentLoaded", () => {
+  const isDark = localStorage.getItem("theme") === "dark";
+  applyTheme(isDark);
+
+  const codeSelector = document.getElementById("codeSelector");
+  if (codeSelector) {
+    codeSelector.dispatchEvent(new Event("change"));
+  }
+
+  const docsContainer = document.getElementById("docs-container");
+  if (docsContainer) {
+    if (typeof marked === 'undefined') {
+      docsContainer.innerHTML = "<p>❌ Marked library not loaded. Please check your internet connection.</p>";
+      return;
+    }
+
+    docsContainer.innerHTML = "<p>Loading documentation...</p>";
+
+    // ✅ Custom Admonition Block Support
+    const admonitionExtension = {
+      extensions: [{
+        name: 'admonition',
+        level: 'block',
+        start(src) {
+          return src.match(/^\[!\w+\]/)?.index;
+        },
+        tokenizer(src) {
+          const match = src.match(/^\[!(\w+)\][ \t]*(.*?)\n((?:.+\n?)*)/);
+          if (match) {
+            return {
+              type: 'admonition',
+              raw: match[0],
+              kind: match[1].toLowerCase(),
+              title: match[2].trim(),
+              text: match[3].trim()
+            };
+          }
+        },
+        renderer(token) {
+          const title = token.title || token.kind.toUpperCase();
+          return `
+            <div class="admonition admonition-${token.kind}">
+              <div class="admonition-title">${title}</div>
+              <div class="admonition-body">${marked.parse(token.text)}</div>
+            </div>
+          `;
+        }
+      }]
+    };
+    marked.use(admonitionExtension);
+
+    const url = `https://raw.githubusercontent.com/TheDevConnor/Zura-Transpiled/experimental/docs/docs.md?t=${Date.now()}`;
+
+    fetch(url)
+      .then(res => {
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+        return res.text();
+      })
+      .then(md => {
+        docsContainer.innerHTML = marked.parse(md);
+
+        // Auto-link and scroll to headings
+        docsContainer.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach((heading, index) => {
+          const id = heading.textContent.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '');
+          heading.id = id;
+          heading.innerHTML = `<a href="#${id}" class="anchor-link">${heading.innerHTML}</a>`;
+          heading.style.scrollBehavior = 'smooth';
+          heading.style.cursor = 'pointer';
+          heading.addEventListener('click', () => {
+            window.location.hash = `#${id}`;
+          });
+        });
+
+        Prism.highlightAll();
+      })
+      .catch(err => {
+        docsContainer.innerHTML = "<p>❌ Failed to load docs. Try again later.</p>";
+        console.error("Error loading docs:", err);
+      });
+  }
+
+  // ✅ Fetch latest GitHub release version and update DOM
+  fetch("https://api.github.com/repos/TheDevConnor/Zura-Transpiled/releases/latest")
+    .then(res => res.json())
+    .then(data => {
+      let versionRaw = data.tag_name || data.name || "";
+      let versionClean = versionRaw.replace(/^Release-/, ''); // Remove 'Release-' prefix
+      versionClean = versionClean.split('-')[0];
+      if (!versionClean) {
+        console.warn("⚠️ No valid version found in GitHub release data.");  
+        return;
+      }
+
+      const heading = document.getElementById("version-heading");
+      const versionSpan = heading?.querySelector(".version-number");
+      if (versionSpan && versionClean) {
+        versionSpan.textContent = versionClean;
+      }
+    })
+    .catch(err => {
+      console.warn("⚠️ Failed to fetch GitHub release version:", err);
+    });
 });
 
-// ====== HAMBURGER MENU TOGGLE ======
+// === On toggle click ===
+if (toggle) {
+  toggle.addEventListener('click', () => {
+    const isCurrentlyDark = document.documentElement.classList.contains('dark-mode');
+    applyTheme(!isCurrentlyDark);
+  });
+}
+
+// === HAMBURGER MENU TOGGLE ===
 const hamburger = document.getElementById("hamburger");
 const navLinks = document.getElementById("navLinks");
 
-hamburger.addEventListener("click", () => {
-  navLinks.classList.toggle("active");
+if (hamburger && navLinks) {
+  hamburger.addEventListener("click", () => {
+    navLinks.classList.toggle("active");
 
-  hamburger.innerHTML = navLinks.classList.contains("active")
-    ? '<i class="bi bi-x"></i>'
-    : '<i class="bi bi-list"></i>';
-});
+    hamburger.innerHTML = navLinks.classList.contains("active")
+      ? '<i class="bi bi-x"></i>'
+      : '<i class="bi bi-list"></i>';
+  });
+}
 
-// ====== CODE SELECTOR TOGGLE DISPLAY ======
+// === CODE SELECTOR ===
 const selector = document.getElementById('codeSelector');
 const examples = document.querySelectorAll('.code-example');
 
-selector.addEventListener('change', function () {
-  examples.forEach(el => el.style.display = 'none');
-  const selected = document.getElementById(this.value);
-  if (selected) selected.style.display = 'block';
-});
+if (selector && examples.length > 0) {
+  selector.addEventListener('change', function () {
+    examples.forEach(el => el.style.display = 'none');
+    const selected = document.getElementById(this.value);
+    if (selected) selected.style.display = 'block';
+  });
+}
 
 // ====== CODE SAMPLE DATA AND PRISM HIGHLIGHTING ======
 const codeSamples = {
@@ -256,9 +338,21 @@ const main := fn () int! {
 `,
 };
 
-document.getElementById("codeSelector").addEventListener("change", (e) => {
-  const selected = e.target.value;
-  const codeElement = document.getElementById("codeOutput");
-  codeElement.textContent = codeSamples[selected] || "";
-  Prism.highlightElement(codeElement);
-});
+const codeSelector = document.getElementById("codeSelector");
+if (codeSelector) {
+  codeSelector.addEventListener("change", (e) => {
+    const selected = e.target.value;
+    const codeElement = document.getElementById("codeOutput");
+    if (codeElement) {
+      // Update text content
+      codeElement.textContent = codeSamples[selected] || "";
+
+      // Make sure the language class is set on <code> or <pre>
+      // For example, on <code>:
+      codeElement.className = "language-zura";
+
+      // Trigger Prism to highlight
+      Prism.highlightElement(codeElement);
+    }
+  });
+}
