@@ -9,7 +9,7 @@
       if (isDark) {
         document.documentElement.classList.add("dark-mode");
       }
-    } catch (e) {}
+    } catch (e) { }
   })();
 </script>
 
@@ -26,17 +26,21 @@
 </head>
 
 <body>
-   <div class="nav-bar">
+  <div class="nav-bar">
     <nav>
       <button class="hamburger" id="hamburger" aria-label="Toggle Menu">
         <i class="bi bi-list"></i>
       </button>
+
+      <li><i class="bi bi-moon toggle-mobile" id="toggleDarkMobile"></i></li>
+
       <div class="nav-links" id="navLinks">
         <ul>
           <li><a href="index.html">Home</a></li>
-          <li><a href="https://github.com/TheDevConnor/Zura-Transpiled/releases/latest" target="_blank">Download</a></li>
+          <li><a href="https://github.com/TheDevConnor/Zura-Transpiled/releases/latest" target="_blank">Download</a>
+          </li>
           <li><a href="docs.html">Docs</a></li>
-          <li><i class="bi bi-moon" id="toggleDark"></i></li>
+          <li><i class="bi bi-moon toggle-desktop" id="toggleDark"></i></li>
         </ul>
       </div>
     </nav>
@@ -68,7 +72,7 @@
             </svg>
             <span>github.com/zura</span>
           </a>
-          
+
           <a class="link discord-link" href="https://discord.gg/JvExQpGuXM" target="_blank">
             <svg class="svg-inline--fa fa-discord fa-w-16" aria-hidden="true" focusable="false" data-prefix="fab"
               data-icon="discord" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"
@@ -111,8 +115,8 @@
       </div>
 
       <footer class="footer">
-        <p>© 2025 Zura Programming Language. All rights reserved. Created by <a href="https://github.com/TheDevConnor" target="_blank"
-            class="footer-link">Zura Team</a></p>
+        <p>© 2025 Zura Programming Language. All rights reserved. Created by <a href="https://github.com/TheDevConnor"
+            target="_blank" class="footer-link">Zura Team</a></p>
       </footer>
 </body>
 

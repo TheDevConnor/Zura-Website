@@ -1,7 +1,6 @@
 const toggle = document.getElementById('toggleDark');
 const body = document.body;
 
-// === Apply theme ===
 function applyTheme(isDark) {
   document.documentElement.classList.toggle('dark-mode', isDark);
   localStorage.setItem('theme', isDark ? 'dark' : 'light');
@@ -12,9 +11,8 @@ function applyTheme(isDark) {
     toggle.classList.toggle('bi-brightness-high-fill', isDark);
   }
 
-  // Footer link color
-  const footerLinks = document.querySelectorAll('.footer-link');
-  footerLinks.forEach(link => {
+  // Footer link colors
+  document.querySelectorAll('.footer-link').forEach(link => {
     link.style.color = isDark ? '#DCDDDE' : '#23272A';
     link.style.transition = 'color 2s';
   });
@@ -24,6 +22,21 @@ function applyTheme(isDark) {
 window.addEventListener("DOMContentLoaded", () => {
   const isDark = localStorage.getItem("theme") === "dark";
   applyTheme(isDark);
+  
+  const toggleDesktop = document.getElementById('toggleDark');
+  const toggleMobile = document.getElementById('toggleDarkMobile');
+  if (toggleDesktop) {
+    toggleDesktop.addEventListener('click', () => {
+      const darkNow = document.documentElement.classList.contains('dark-mode');
+      applyTheme(!darkNow);
+    });
+  }
+  if (toggleMobile) {
+    toggleMobile.addEventListener('click', () => {
+      const darkNow = document.documentElement.classList.contains('dark-mode');
+      applyTheme(!darkNow);
+    });
+  }
 
   const currentPath = window.location.pathname.replace(/\/$/, ""); // removes trailing slash
   const links = document.querySelectorAll(".nav-bar nav ul li a");
@@ -134,14 +147,6 @@ window.addEventListener("DOMContentLoaded", () => {
       console.warn("⚠️ Failed to fetch GitHub release version:", err);
     });
 });
-
-// === On toggle click ===
-if (toggle) {
-  toggle.addEventListener('click', () => {
-    const isCurrentlyDark = document.documentElement.classList.contains('dark-mode');
-    applyTheme(!isCurrentlyDark);
-  });
-}
 
 // === HAMBURGER MENU TOGGLE ===
 const hamburger = document.getElementById("hamburger");

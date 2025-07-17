@@ -149,6 +149,21 @@ p {
   background-color: var(--accent);
 }
 
+.toggle-desktop {
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin-left: auto;
+  color: var(--color-nav-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  border-radius: 6px;
+}
+
+.toggle-mobile {
+  display: none; /* hidden by default */
+}
 /* ===============================
    Hamburger Menu Styles
 ================================= */
@@ -754,14 +769,30 @@ pre[class*="language-"] {
     box-sizing: border-box;
   }
 
+  .nav-bar .toggle-desktop {
+    display: none; /* hide desktop toggle on mobile */
+  }
+
+  
   .nav-bar nav {
-    left: 0;
-    top: 0;
-    transform: none;
+    display: flex;
+    align-items: center;     /* ensures items inside are vertically aligned */
+    height: 45px;            /* or whatever height works well for your UI */
+    justify-content: space-between;
+    position: fixed;
     width: 100%;
     border-radius: 0;
-    justify-content: flex-start;
-    padding: 10px 20px;
+    left: -17px;
+    top: 0;
+    transform: none;
+  }
+
+  .toggle-mobile {
+    display: block; /* shows the mobile toggle */
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--color-nav-text);
+    margin-bottom: 10px;
   }
 
   .hamburger {
@@ -775,7 +806,7 @@ pre[class*="language-"] {
     width: 100%; /* make it match full navbar width */
     position: absolute;
     top: 100%; /* right below the navbar */
-    left: -20px;
+    left: 0px;
     background-color: var(--bg-nav);
     border-radius: 0 0 10px 10px;
     box-shadow: 0px 6px 12px var(--shadow-dark);

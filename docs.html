@@ -9,7 +9,7 @@
       if (isDark) {
         document.documentElement.classList.add("dark-mode");
       }
-    } catch (e) {}
+    } catch (e) { }
   })();
 </script>
 
@@ -33,13 +33,16 @@
       <button class="hamburger" id="hamburger" aria-label="Toggle Menu">
         <i class="bi bi-list"></i>
       </button>
+
+      <li><i class="bi bi-moon toggle-mobile" id="toggleDarkMobile"></i></li>
+
       <div class="nav-links" id="navLinks">
         <ul>
           <li><a href="index.html">Home</a></li>
           <li><a href="https://github.com/TheDevConnor/Zura-Transpiled/releases/latest" target="_blank">Download</a>
           </li>
           <li><a href="docs.html">Docs</a></li>
-          <li><i class="bi bi-moon" id="toggleDark"></i></li>
+          <li><i class="bi bi-moon toggle-desktop" id="toggleDark"></i></li>
         </ul>
       </div>
     </nav>
