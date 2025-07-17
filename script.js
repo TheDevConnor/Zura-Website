@@ -25,6 +25,16 @@ window.addEventListener("DOMContentLoaded", () => {
   const isDark = localStorage.getItem("theme") === "dark";
   applyTheme(isDark);
 
+  const currentPath = window.location.pathname.replace(/\/$/, ""); // removes trailing slash
+  const links = document.querySelectorAll(".nav-bar nav ul li a");
+
+  links.forEach(link => {
+    const linkPath = new URL(link.href, window.location.origin).pathname.replace(/\/$/, "");
+    if (linkPath === currentPath) {
+      link.classList.add("active");
+    }
+  });
+
   const codeSelector = document.getElementById("codeSelector");
   if (codeSelector) {
     codeSelector.dispatchEvent(new Event("change"));

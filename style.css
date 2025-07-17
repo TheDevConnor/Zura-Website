@@ -159,7 +159,9 @@ p {
   font-size: 1.8rem;
   cursor: pointer;
   display: none;
-  margin-right: auto;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
 }
 
 .nav-links {
@@ -734,6 +736,11 @@ pre[class*="language-"] {
     font-size: 0.9rem;
   }
 
+  .docs-container span code {
+    font-size: 0.85rem;
+  }
+
+
   .footer {
     position: relative;
   }
@@ -747,23 +754,50 @@ pre[class*="language-"] {
     box-sizing: border-box;
   }
 
+  .nav-bar nav {
+    left: 0;
+    top: 0;
+    transform: none;
+    width: 100%;
+    border-radius: 0;
+    justify-content: flex-start;
+    padding: 10px 20px;
+  }
+
   .hamburger {
     display: block;
-    margin-left: auto;
+    padding-bottom: 10px;
   }
 
   .nav-links {
-    display: none;
+    display: none; /* stays hidden by default */
     flex-direction: column;
-    width: 100%;
+    width: 100%; /* make it match full navbar width */
+    position: absolute;
+    top: 100%; /* right below the navbar */
+    left: -20px;
     background-color: var(--bg-nav);
-    border-radius: 10px;
-    margin-top: 10px;
-    box-shadow: 0 6px 12px var(--shadow-dark);
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0px 6px 12px var(--shadow-dark);
+    z-index: 1000;
+  }
+
+  .nav-bar nav ul li a.active {
+    position: relative;
+    color: var(--accent);
+  }
+
+  .nav-bar nav ul li a.active::after {
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--accent);
   }
 
   .nav-links.active {
-    display: flex;
+    display: flex; /* shows it when toggled */
   }
 
   .nav-links ul {
@@ -788,7 +822,6 @@ pre[class*="language-"] {
 
   .code_block {
     width: 100%;
-    /* translate: -20.5% 0; */
   }
 
   .code_block pre[class*="language-"],
@@ -815,8 +848,8 @@ pre[class*="language-"] {
     font-size: small;
   }
 
-  .docs-container span code {
-    font-size: 0.65rem;
+  .docs-container pre span code {
+    font-size: 0.55rem;
   }
 
   .footer {
